@@ -33,7 +33,7 @@
     methods: {
       getQuestions() {
         var router = this.$router;
-        this.$store.dispatch('buscarQuestoes')
+        this.$store.dispatch('getQuestions')
           .then(function(data) {
             console.log("Successful Request")
             router.push({
@@ -42,7 +42,6 @@
           })
           .catch(function(data) {
             console.log("Rejected Request")
-            console.log(data)
           })
       }
     }
