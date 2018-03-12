@@ -20,6 +20,10 @@ export const store = new Vuex.Store({
                 shuffle(questions[i].incorrect_answers);
             }
             state.questions = questions;
+        },
+        setResults(state, answers) {
+            state.results.correct_answers = answers.corrects;
+            state.results.incorrect_answers = answers.incorrects;
         }
     },
     actions: {

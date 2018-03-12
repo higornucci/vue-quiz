@@ -2,7 +2,7 @@
     <div class="game">
         <div class="card w-75 text-center py-4 mx-auto">
             <question v-bind:question='question'></question>
-            <answers v-bind:answers='object'></answers>
+            <answers v-bind:answers='object' v-on:nextQuestion='getQuestion($event)'></answers>
         </div>
     </div>
 </template>
@@ -22,13 +22,25 @@
                 result: {
                     corrects: 0,
                     incorrects: 0
-                }
+                },
+                gameActive: true
             }
         },
         methods: {
             getQuestion: function(answer) {
-                this.object = this.questions.shift()
-                this.question = this.object.question
+                if(answer) {
+                    this.result.corrects++
+                } else if(answer == false) {
+                    this.result.incorrects++
+                } else if(answer == null) {}
+                if(this.questions[0]) {
+                    this.gameActive == true
+                    this.object = this.questions.shift()
+                    this.question = this.object.question
+                } else {
+                    this.$store.commit('setResults', this.result)
+                    this.router.push({name: 'results'})
+                }
             }
         },
         created() {
